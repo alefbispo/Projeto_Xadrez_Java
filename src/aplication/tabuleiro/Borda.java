@@ -39,11 +39,24 @@ public class Borda {
     }
 
     public void colocarPeca(Peca peca, Posicao posicao) {
-        if(temUmaPeca(posicao)){
-            throw new TabuleiroExeption("Ja existe uma peça na posição "+ posicao);
+        if (temUmaPeca(posicao)) {
+            throw new TabuleiroExeption("Ja existe uma peça na posição " + posicao);
         }
         pecas[posicao.getLinha()][posicao.getColuna()] = peca;
         peca.posicao = posicao;
+    }
+
+    public Peca removerPeca(Posicao posicao) {
+        if (!posicaoExistente(posicao)) {
+            throw new TabuleiroExeption("Posição inexistente no tabuleiro");
+        }
+        if (peca(posicao) == null){
+            return null;
+        }
+        Peca aux = peca(posicao);
+        aux.posicao = null;
+        pecas[posicao.getLinha()][posicao.getColuna()] = null;
+        return aux;
     }
 
     public boolean posicaoExistente(int linha, int coluna) {
