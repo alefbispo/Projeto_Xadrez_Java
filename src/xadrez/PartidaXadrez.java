@@ -6,8 +6,6 @@ import aplication.tabuleiro.Posicao;
 import xadrez.pecas.Rei;
 import xadrez.pecas.Torre;
 
-import java.awt.*;
-
 public class PartidaXadrez {
 
     private Borda borda;
@@ -31,16 +29,23 @@ public class PartidaXadrez {
     public PecaXadrez moverPeca(XadrezPosicao posicaoDeOrigem, XadrezPosicao posicaoDestino) {
         Posicao origem = posicaoDeOrigem.posicionar();
         Posicao destino = posicaoDestino.posicionar();
-        validarPosicao(origem);
+        validarPosicaoAlvo(origem);
+        validarPosicaoDestino(origem, destino);
         Peca pecaCapturada = movimentar(origem, destino);
         return (PecaXadrez) pecaCapturada;
     }
 
-    private void validarPosicao(Posicao posicao) {
+    private void validarPosicaoDestino(Posicao origem, Posicao destino) {
+        if(!borda.peca(origem).movimentoPossivel(destino)){
+throw new XadrezException("A peça escolhida não pode se mover para posição de destino");
+        }
+    }
+
+    private void validarPosicaoAlvo(Posicao posicao) {
         if (!borda.posicaoExistente(posicao)) {
             throw new XadrezException("Não existe peça na posição de origem");
         }
-        if (!borda.peca(posicao).ehUmMovimentoPossivel()){
+        if (!borda.peca(posicao).ehUmMovimentoPossivel()) {
             throw new XadrezException("Não existe movimentos possiveis para a peça escolhida");
         }
     }
@@ -48,7 +53,7 @@ public class PartidaXadrez {
     private Peca movimentar(Posicao origem, Posicao destino) {
         Peca p = borda.removerPeca(origem);
         Peca pecaCapturada = borda.removerPeca(destino);
-        borda.colocarPeca(p,destino);
+        borda.colocarPeca(p, destino);
         return pecaCapturada;
     }
 
