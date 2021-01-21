@@ -30,7 +30,7 @@ public class UI {
     public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
-    public static void limparTela(){
+    public static void limparTela() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
@@ -53,7 +53,7 @@ public class UI {
         for (int i = 0; i < pecas.length; i++) {
             System.out.print((8 - i) + " ");
             for (int j = 0; j < pecas.length; j++) {
-                printPeca(pecas[i][j]);
+                printPeca(pecas[i][j], false);
 
             }
             System.out.println();
@@ -62,7 +62,23 @@ public class UI {
 
     }
 
-    private static void printPeca(PecaXadrez peca) {
+    public static void printBorda(PecaXadrez[][] pecas, boolean[][] movimentosPossiveis) {
+        for (int i = 0; i < pecas.length; i++) {
+            System.out.print((8 - i) + " ");
+            for (int j = 0; j < pecas.length; j++) {
+                printPeca(pecas[i][j], movimentosPossiveis[i][j]);
+
+            }
+            System.out.println();
+        }
+        System.out.println("  a b c d e f g h");
+
+    }
+
+    private static void printPeca(PecaXadrez peca, boolean fundo) {
+        if (fundo) {
+            System.out.print(ANSI_BLUE_BACKGROUND);
+        }
         if (peca == null) {
             System.out.print("-");
         } else {

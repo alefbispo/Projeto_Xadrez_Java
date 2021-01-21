@@ -28,6 +28,10 @@ public class Main {
                 System.out.print("Destinho: ");
                 XadrezPosicao destino = UI.lerXadrezPosicao(scan);
 
+                boolean[][] movimentosPossiveis = partidaXadrez.movimentosPossiveis(origem);
+                UI.limparTela();
+                UI.printBorda(partidaXadrez.getPecas(), movimentosPossiveis);
+
                 PecaXadrez pecaCapturada = partidaXadrez.moverPeca(origem, destino);
             } catch (XadrezException e) {
                 System.out.println(e.getMessage());
