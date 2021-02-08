@@ -2,6 +2,7 @@ package aplication;
 
 import aplication.tabuleiro.TabuleiroExeption;
 import xadrez.Cor;
+import xadrez.PartidaXadrez;
 import xadrez.PecaXadrez;
 import xadrez.XadrezPosicao;
 
@@ -47,6 +48,13 @@ public class UI {
                     ("Erro na posição! posições validas apenas entre a1 e h8.");
 
         }
+    }
+
+    public static void printPartida(PartidaXadrez partidaXadrez) {
+        printBorda(partidaXadrez.getPecas());
+        System.out.println();
+        System.out.println("Turno : " + partidaXadrez.getTurno());
+        System.out.println("Aguardando Jogador: " + partidaXadrez.getPlayerAtual());
     }
 
     public static void printBorda(PecaXadrez[][] pecas) {
